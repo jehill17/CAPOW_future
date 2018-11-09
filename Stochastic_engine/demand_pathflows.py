@@ -2752,7 +2752,8 @@ for i in range(0,effect_sim_year):
         PGEB_hourly[i*8760+24*j:i*8760+24*j+24] = a
         
 #Placeholder
-PNW_hourly = BPA_hourly*2
+import PNW_demand_scaling
+PNW_hourly = PNW_demand_scaling.PNW_demand(BPA_hourly)
 
 Combined = np.column_stack((BPA_hourly,PNW_hourly,SDGE_hourly,SCE_hourly,PGEV_hourly,PGEB_hourly))
 df_C = pd.DataFrame(Combined)
