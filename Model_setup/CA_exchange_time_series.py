@@ -138,6 +138,12 @@ def exchange(year):
     df_data = pd.read_excel('../Stochastic_engine/CA_hydropower/CA_hydro_daily.xlsx',header=0)
     hydro = df_data.loc[year*365:year*365+364,:]
     hydro = hydro.reset_index()
+    hydro=hydro.values
+    PGE_ALL=hydro[:,1]/0.837
+    SCE_all=hydro[:,2]/0.8016
+    hydro=pd.DataFrame()
+    hydro['PGE_valley']=PGE_ALL
+    hydro['SCE']=SCE_all
     zones = ['PGE_valley','SCE']
     df_mins = pd.read_excel('Hydro_setup/Minimum_hydro_profiles.xlsx',header=0)
     
