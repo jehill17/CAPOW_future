@@ -89,7 +89,7 @@ num_days = int(len(df_prices)/24)
 #regression
 X = df_prices.loc[:,:'SDGE']
 y = df_prices.loc[:,'ICE']
-reg = linear_model.LinearRegression()
+reg = linear_model.LinearRegression(fit_intercept=False)
 reg.fit(X,y)
 
 sim_hourly = np.zeros((no_hours,1))
