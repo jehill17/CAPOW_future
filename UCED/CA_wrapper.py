@@ -327,7 +327,7 @@ def sim(days):
                  
                name = index[0]
                g = df_generators[df_generators['name']==name]
-               seg3 = g['seg1'].values
+               seg3 = g['seg3'].values
                seg3 = seg3[0]
                  
                if int(index[1]>0 and index[1]<25):
