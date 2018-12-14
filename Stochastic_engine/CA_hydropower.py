@@ -582,7 +582,7 @@ def hydro(sim_years):
      
     df_D = pd.DataFrame(daily)
     df_D.columns = ['PGE_valley','SCE']
-    df_D.to_excel('CA_hydropower/CA_hydro_daily.xlsx')
+    df_D.to_csv('CA_hydropower/CA_hydro_daily.csv')
 
     return None 
 
