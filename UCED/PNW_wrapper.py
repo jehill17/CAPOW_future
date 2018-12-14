@@ -143,8 +143,8 @@ def sim(days):
                  
                name = index[0]     
                g = df_generators[df_generators['name']==name]
-               seg1 = g['seg1'].values
-               seg1 = seg1[0]  
+               seg2 = g['seg2'].values
+               seg2 = seg2[0]  
     
                if int(index[1]>0 and index[1]<25):
                 if index[0] in instance.Zone5Generators:
@@ -152,13 +152,13 @@ def sim(days):
                     gas_price = instance.GasPrice['PNW'].value
                     
                     if index[0] in instance.Gas:
-                        marginal_cost = seg1*gas_price
+                        marginal_cost = seg2*gas_price
                         mwh_2.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Gas',marginal_cost))                  
                     elif index[0] in instance.Coal:
-                        marginal_cost = seg1*2
+                        marginal_cost = seg2*2
                         mwh_2.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Coal',marginal_cost))
                     elif index[0] in instance.Oil:
-                        marginal_cost = seg1*20
+                        marginal_cost = seg2*20
                         mwh_2.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Oil',marginal_cost))
                     elif index[0] in instance.Nuclear:
                         marginal_cost = 10
@@ -183,8 +183,8 @@ def sim(days):
                  
                name = index[0]     
                g = df_generators[df_generators['name']==name]
-               seg1 = g['seg1'].values
-               seg1 = seg1[0]  
+               seg3 = g['seg3'].values
+               seg3 = seg3[0]  
                  
                if int(index[1]>0 and index[1]<25):
                 if index[0] in instance.Zone5Generators:
@@ -192,13 +192,13 @@ def sim(days):
                     gas_price = instance.GasPrice['PNW'].value
                     
                     if index[0] in instance.Gas:
-                        marginal_cost = seg1*gas_price
+                        marginal_cost = seg3*gas_price
                         mwh_3.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Gas',marginal_cost))                  
                     elif index[0] in instance.Coal:
-                        marginal_cost = seg1*2
+                        marginal_cost = seg3*2
                         mwh_3.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Coal',marginal_cost))
                     elif index[0] in instance.Oil:
-                        marginal_cost = seg1*20
+                        marginal_cost = seg3*20
                         mwh_3.append((index[0],index[1]+((day-1)*24),varobject[index].value,'PNW','Oil',marginal_cost))
                     elif index[0] in instance.Nuclear:
                         marginal_cost = 10
