@@ -284,7 +284,7 @@ def solar_sim(sim_years,cap):
     solar_sim = solar_sim[8760:h-2*8760,:]
     S = pd.DataFrame(solar_sim)
     S.columns = ['CAISO']
-    S.to_excel('Synthetic_solar_power/solar_power_sim.xlsx')
+    S.to_csv('Synthetic_solar_power/solar_power_sim.csv')
            
     return None
            
