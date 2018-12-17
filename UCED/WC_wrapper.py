@@ -82,7 +82,8 @@ def sim(days):
             instance.HorizonPath45_exports[i] = instance.SimPath45_exports[(day-1)*24+i]             
             instance.HorizonPath3_exports[i] = instance.SimPath3_exports[(day-1)*24+i] 
             instance.HorizonPath8_exports[i] = instance.SimPath8_exports[(day-1)*24+i] 
-            instance.HorizonPath14_exports[i] = instance.SimPath14_exports[(day-1)*24+i]
+            instance.HorizonPath14_exports[i] = instance.SimPath14_exports[(day-1)*24+i]             
+            instance.HorizonPath65_exports[i] = instance.SimPath65_exports[(day-1)*24+i]
             
             instance.HorizonPath46_SCE_minflow[i] = instance.SimPath46_SCE_imports_minflow[(day-1)*24+i]             
             instance.HorizonPath42_minflow[i] = instance.SimPath42_imports_minflow[(day-1)*24+i] 

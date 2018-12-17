@@ -155,6 +155,7 @@ model.SimPath45_exports = Param(model.SH_periods, within=NonNegativeReals)
 model.SimPath3_exports = Param(model.SH_periods, within=NonNegativeReals)
 model.SimPath8_exports = Param(model.SH_periods, within=NonNegativeReals)
 model.SimPath14_exports = Param(model.SH_periods, within=NonNegativeReals)
+model.SimPath65_exports = Param(model.SH_periods, within=NonNegativeReals)
 
 
 model.HorizonPath42_exports = Param(model.hh_periods, within=NonNegativeReals,mutable=True)
@@ -163,6 +164,7 @@ model.HorizonPath45_exports = Param(model.hh_periods, within=NonNegativeReals,mu
 model.HorizonPath3_exports = Param(model.hh_periods, within=NonNegativeReals,mutable=True)
 model.HorizonPath8_exports = Param(model.hh_periods, within=NonNegativeReals,mutable=True)
 model.HorizonPath14_exports = Param(model.hh_periods, within=NonNegativeReals,mutable=True)
+model.HorizonPath65_exports = Param(model.hh_periods, within=NonNegativeReals,mutable=True)
 
 
 ##
@@ -434,7 +436,7 @@ def Zone5_Balance(model,i):
     other = model.solar['PNW',i] + model.PNWH_minflow[i]\
     + model.wind['PNW',i] + model.HorizonMustRun['PNW',i]
     imports =  model.P8I_minflow[i] + model.P14I_minflow[i] + model.P3I_minflow[i] + model.mwh_1['P3I',i] + model.mwh_2['P3I',i] + model.mwh_3['P3I',i] + model.mwh_1['P8I',i] + model.mwh_2['P8I',i] + model.mwh_3['P8I',i] + model.mwh_1['P14I',i] + model.mwh_2['P14I',i] + model.mwh_3['P14I',i] 
-    exports =  model.HorizonPath8_exports[i] + model.HorizonPath3_exports[i] + model.HorizonPath14_exports[i]
+    exports =  model.HorizonPath8_exports[i] + model.HorizonPath3_exports[i] + model.HorizonPath14_exports[i] + model.HorizonPath65_exports[i]
     return s1 + s2 + s3 + other + imports - exports >= model.HorizonDemand['PNW',i]
 model.Bal5Constraint= Constraint(model.hh_periods,rule=Zone5_Balance)
 
