@@ -9,10 +9,10 @@ import numpy as np
 
 #==============================================================================
  
-df_mwh1 = pd.read_csv('PNW/mwh_1.csv',header=0)
-df_mwh2 = pd.read_csv('PNW/mwh_2.csv',header=0)
-df_mwh3 = pd.read_csv('PNW/mwh_3.csv',header=0)
-df_gen = pd.read_csv('../Model_setup/PNW_data_file/generators.csv',header=0)
+df_mwh1 = pd.read_csv('WC/mwh_1.csv',header=0)
+df_mwh2 = pd.read_csv('WC/mwh_2.csv',header=0)
+df_mwh3 = pd.read_csv('WC/mwh_3.csv',header=0)
+df_gen = pd.read_csv('../Model_setup/PNW_data_file/generators2.csv',header=0)
 
 last_hour = df_mwh1['Time'].iloc[-1]
 
@@ -70,10 +70,10 @@ for i in range(0,no_days):
 
 hourly = pd.DataFrame(zonal_prices)
 hourly.columns = zones
-hourly.to_csv('PNW/sim_hourly_prices.csv')
+hourly.to_csv('WC/PNW_sim_hourly_prices.csv')
 
 daily = pd.DataFrame(daily_prices)
 daily.columns = zones
-daily.to_csv('PNW/sim_daily_prices.csv')
+daily.to_csv('WC/PNW_sim_daily_prices.csv')
 
 

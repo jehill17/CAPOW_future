@@ -18,13 +18,9 @@ Created on Mon Oct  8 11:45:39 2018
 # specified (max is 365)
 days = 5
                            
-# CALIFORNIA 
-import CA_wrapper
-CA_wrapper.sim(days)
-
-# PACIFIC NORTHWEST
-import PNW_wrapper
-PNW_wrapper.sim(days)
+#WEST COAST
+import WC_wrapper
+WC_wrapper.sim(days)
 
 ############################################################################
 #                    WHOLESALE ELECTRICITY PRICES

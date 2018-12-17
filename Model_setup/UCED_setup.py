@@ -67,26 +67,22 @@ df_Willamette = pd.read_excel('Willamette/Output/Willamette_simulation_hydropowe
 W=df_Willamette
 W.columns = ['W']
 
-# ACCOUNT FOR MISSING DAMS
-
 import PNW_exchange_time_series
 PNW_exchange_time_series.exchange(year,W)
 
 ############################################################################
 #                          UC/ED Data File Setup
 
-# CALFIFORNIA
+# WEST COAST
 # hist = 1 if looking at historical nuclear power production; facilitates use of
 # monthly nuclear power generation data from EIA. Note that if hist = 0 
 # the model assumes that nuclear power plants in California have been retired.
 hist = 0
 hist_year = 2011
 
-import CA_data_setup
-CA_data_setup.setup(year,hist,hist_year)
+import WC_data_setup
+WC_data_setup.setup(year,hist,hist_year)
 
-# PACIFIC NORTHWEST
-import PNW_data_setup
-PNW_data_setup.setup(year)
+
 
 
