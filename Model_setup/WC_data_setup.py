@@ -56,7 +56,7 @@ def setup(year,hist,hist_year):
     
      
     ##time series solar for each TAC
-    df_solar = pd.read_excel('../Stochastic_engine/Synthetic_solar_power/solar_power_sim.xlsx',header=0)   
+    df_solar = pd.read_csv('../Stochastic_engine/Synthetic_solar_power/solar_power_sim.csv',header=0)   
     df_solar = df_solar.loc[year*8760:year*8760+8759]
     df_solar = df_solar.reset_index()
     solar_caps = pd.read_excel('CA_data_file/solar_caps.xlsx')

@@ -18,7 +18,7 @@ Created on Wed Sep 19 09:59:48 2018
 # STOCHASTIC WEATHER AND STREAMFLOW GENERATION
 
 # Specify a number of synthetic years to be simulated 
-sim_years=5
+sim_years=2
 
 # Generate synthetic weather (wind speed and temperature) records. 
 import synthetic_temps_wind

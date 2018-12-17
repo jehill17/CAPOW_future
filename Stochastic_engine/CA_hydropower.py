@@ -109,7 +109,8 @@ def hydro(sim_years):
                 
                 # which operating rule to use?
                 Rule=Rule_list[year]
-                exec("Temp_Rule=pd.read_csv('CA_hydropower/A1.0_FNF_Storage_Rule_%s.txt',delimiter=' ',header=None)"  % (name))
+                File_name='CA_hydropower/A1.0_FNF_Storage_Rule_' + str(name) +'.txt'
+                Temp_Rule=pd.read_csv(File_name,delimiter=' ',header=None)
                 peak_flow,starting,ending,refill_1_date,evac_date,peak_end,refill_2_date,storage,power_cap,eff,min_power=Temp_Rule.loc[Rule][:]
                           
                 flow_weekly = []
@@ -162,7 +163,7 @@ def hydro(sim_years):
                 elif k =='Yuba' and I_O =='Outflows':
                     site_name=['YRS_otf']
                 else:
-                    print k
+                    None
     
                 flow_ts = df_sim.loc[:,site_name].values                
                 weeks = int(np.floor(len(flow_ts)/7))  
@@ -229,7 +230,8 @@ def hydro(sim_years):
                 upper_now=upper_now.reset_index(drop=True)
                 upper=upper_now.loc[0]['Max Gen']
                 Rule=Rule_list[year]
-                exec("Temp_Rule=pd.read_csv('CA_hydropower/PGE_DE_V1/FNF_%s.txt',delimiter=' ',header=None)"  % (name))
+                File_name='CA_hydropower/PGE_DE_V1/FNF_' + str(name) +'.txt'
+                Temp_Rule=pd.read_csv(File_name,delimiter=' ',header=None)
                 peak_flow,sum_cap,spr_cap,fall_cap,win_date,spr_date,sum_date,fall_date,eff,check_surplus=Temp_Rule.loc[Rule][:]
     
                 surplus = 0
@@ -284,7 +286,7 @@ def hydro(sim_years):
                 elif k =='Yuba' and I_O =='Outflows':
                     site_name=['YRS_otf']
                 else:
-                    print k
+                    None
     
                 flow_ts = df_sim.loc[:,site_name].values                
                 weeks = int(np.floor(len(flow_ts)/7))  
@@ -405,7 +407,8 @@ def hydro(sim_years):
                 pass
             else:
                 Rule=Rule_list[year]
-                exec("Temp_Rule=pd.read_csv('CA_hydropower/SCE_DE_V1/SCE_fnf_%s.txt',delimiter=' ',header=None)"  % (name))
+                File_name='CA_hydropower/SCE_DE_V1/SCE_fnf_' + str(name) +'.txt'
+                Temp_Rule=pd.read_csv(File_name,delimiter=' ',header=None)
                 peak_flow,sum_cap,spr_cap,fall_cap,win_date,spr_date,sum_date,fall_date,eff,check_surplus=Temp_Rule.loc[Rule][:]
     
                 surplus = 0
@@ -459,7 +462,7 @@ def hydro(sim_years):
                 elif k =='Yuba' and I_O =='Outflows':
                     site_name=['YRS_otf']
                 else:
-                    print(k)
+                    None
     
                 flow_ts = df_sim.loc[:,site_name].values                
                 weeks = int(np.floor(len(flow_ts)/7))  
@@ -582,7 +585,7 @@ def hydro(sim_years):
      
     df_D = pd.DataFrame(daily)
     df_D.columns = ['PGE_valley','SCE']
-    df_D.to_csv('CA_hydropower/CA_hydro_daily.csv')
+    df_D.to_excel('CA_hydropower/CA_hydro_daily.xlsx')
 
     return None 
 

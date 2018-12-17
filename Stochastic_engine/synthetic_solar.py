@@ -157,7 +157,7 @@ def solar_sim(sim_years,cap):
     w_losses = w_losses + 2
     
     #transform whitened, shifted losses to normal distribution 
-    cdf_W = st.exponweib.cdf(w_losses, *st.exponweib.fit(w_losses, 1, 1, scale=02, loc=0))
+    cdf_W = st.exponweib.cdf(w_losses, *st.exponweib.fit(w_losses, 1, 1, scale=2, loc=0))
     cdf_N = st.norm.ppf(cdf_W)
     transformed_data = cdf_N
              
@@ -188,7 +188,7 @@ def solar_sim(sim_years,cap):
     
     #convert back to non-simgaussian
     new_N = st.norm.cdf(synvalue)
-    new_WE = st.exponweib.ppf(new_N, *st.exponweib.fit(w_losses, 1, 1, scale=02, loc=0))
+    new_WE = st.exponweib.ppf(new_N, *st.exponweib.fit(w_losses, 1, 1, scale=2, loc=0))
     new_ds = np.reshape(new_WE - 2,(NT,1))
     
     #add back monthly statistics
@@ -282,8 +282,10 @@ def solar_sim(sim_years,cap):
     
     h = int(len(solar_sim))
     solar_sim = solar_sim[8760:h-2*8760,:]
-    S = pd.DataFrame(solar_sim)
-    S.columns = ['CAISO']
+    NW = np.zeros((len(solar_sim),1))
+    combined = np.column_stack((solar_sim,NW))
+    S = pd.DataFrame(combined)
+    S.columns = ['CAISO','PNW']
     S.to_csv('Synthetic_solar_power/solar_power_sim.csv')
            
     return None
