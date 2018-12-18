@@ -280,7 +280,7 @@ def solar_sim(sim_years,cap):
     #multiply by installed capacity
     solar_sim = sim_hourly*cap
     
-    h = int(len(solar_sim))
+     h = int(len(solar_sim))
     solar_sim = solar_sim[8760:h-2*8760,:]
     NW = np.zeros((len(solar_sim),1))
     combined = np.column_stack((solar_sim,NW))

@@ -15,18 +15,15 @@ import numpy as np
 # PNW zone using FCRPS, Willamette, and missing dams. 
 
 # FCRPS
-df_FCRPS = pd.read_csv('PNW_hydro/FCRPS/Modeled_BPA_Dams.csv',header=None)
+df_FCRPS = pd.read_csv('PNW_hydro/FCRPS/Modeled_BPA_dams.csv',header=None)
 FCRPS = df_FCRPS.values
 F = np.sum(FCRPS,axis=1)
 
 # Willamette
-#df_Willamette = pd.read_excel('PNW_hydro/Willamette/Output/Willamette_simulation_hydropower.xlsx')
-#W=df_Willamette.values
 
 # Missing Dams
 
-
-df_total = pd.DataFrame(F) 
+df_total = pd.DataFrame(F)
 df_total.columns = ['PNW']
 df_total.to_excel('PNW_hydro/PNW_hydro_daily.xlsx')
 

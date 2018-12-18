@@ -11,12 +11,10 @@ from statsmodels.tsa.api import VAR
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 
 ######################################################################
 #                                LOAD
 ######################################################################
-
 
 #import data
 df_load = pd.read_excel('Synthetic_demand_pathflows/hist_demanddata.xlsx',sheetname='hourly_load',header=0)
@@ -1141,9 +1139,10 @@ df_data.rename(columns={0:'Month'}, inplace=True)
 df_data.rename(columns={3:'Path8'}, inplace=True)
 df_data.rename(columns={4:'Path14'}, inplace=True)
 df_data.rename(columns={5:'Path3'}, inplace=True)
-df_data.rename(columns={6:'BPA_hydro'}, inplace=True)
-df_data.rename(columns={7:'Weekday'}, inplace=True)
-df_data.rename(columns={8:'Salem_HDD'}, inplace=True)
+df_data.rename(columns={6:'BPA_wind'}, inplace=True)
+df_data.rename(columns={7:'BPA_hydro'}, inplace=True)
+df_data.rename(columns={8:'Weekday'}, inplace=True)
+df_data.rename(columns={9:'Salem_HDD'}, inplace=True)
 
 jan = df_data.loc[df_data['Month'] == 1,:]
 feb = df_data.loc[df_data['Month'] == 2,:]
@@ -1212,45 +1211,45 @@ for line in lines:
     # Train the model using the training sets
     
     name='jan_reg_NW' + str(line)
-    locals()[name].fit(jan.loc[:,'BPA_hydro':],jan.loc[:,line]) 
+    locals()[name].fit(jan.loc[:,'BPA_wind':],jan.loc[:,line]) 
     
     name='feb_reg_NW' + str(line)
-    locals()[name].fit(feb.loc[:,'BPA_hydro':],feb.loc[:,line])
+    locals()[name].fit(feb.loc[:,'BPA_wind':],feb.loc[:,line])
     
     name='mar_reg_NW' + str(line)
-    locals()[name].fit(mar.loc[:,'BPA_hydro':],mar.loc[:,line])
+    locals()[name].fit(mar.loc[:,'BPA_wind':],mar.loc[:,line])
     
     name='apr_reg_NW' + str(line)
-    locals()[name].fit(apr.loc[:,'BPA_hydro':],apr.loc[:,line])
+    locals()[name].fit(apr.loc[:,'BPA_wind':],apr.loc[:,line])
     
     name='may_reg_NW' + str(line)
-    locals()[name].fit(may.loc[:,'BPA_hydro':],may.loc[:,line])
+    locals()[name].fit(may.loc[:,'BPA_wind':],may.loc[:,line])
 
     name='jun_reg_NW' + str(line)
-    locals()[name].fit(jun.loc[:,'BPA_hydro':],jun.loc[:,line])
+    locals()[name].fit(jun.loc[:,'BPA_wind':],jun.loc[:,line])
     
     name='jul_reg_NW' + str(line)
-    locals()[name].fit(jul.loc[:,'BPA_hydro':],jul.loc[:,line])
+    locals()[name].fit(jul.loc[:,'BPA_wind':],jul.loc[:,line])
     
     name='aug_reg_NW' + str(line)
-    locals()[name].fit(aug.loc[:,'BPA_hydro':],aug.loc[:,line])
+    locals()[name].fit(aug.loc[:,'BPA_wind':],aug.loc[:,line])
     
     name='sep_reg_NW' + str(line)
-    locals()[name].fit(sep.loc[:,'BPA_hydro':],sep.loc[:,line])
+    locals()[name].fit(sep.loc[:,'BPA_wind':],sep.loc[:,line])
     
     name='oct_reg_NW' + str(line)
-    locals()[name].fit(oct.loc[:,'BPA_hydro':],oct.loc[:,line])
+    locals()[name].fit(oct.loc[:,'BPA_wind':],oct.loc[:,line])
     
     name='nov_reg_NW' + str(line)
-    locals()[name].fit(nov.loc[:,'BPA_hydro':],nov.loc[:,line])
+    locals()[name].fit(nov.loc[:,'BPA_wind':],nov.loc[:,line])
     
     name='dec_reg_NW' + str(line)
-    locals()[name].fit(dec.loc[:,'BPA_hydro':],dec.loc[:,line])    
+    locals()[name].fit(dec.loc[:,'BPA_wind':],dec.loc[:,line])    
 
     
     # Make predictions using the testing set
     predicted = []
-    rc = np.shape(jan.loc[:,'BPA_hydro':])
+    rc = np.shape(jan.loc[:,'BPA_wind':])
     n = rc[1] 
     
     for i in range(0,len(y)):
@@ -1258,7 +1257,7 @@ for line in lines:
         m = df_data.loc[i,'Month']
         
         if m==1:
-            s = jan.loc[i,'BPA_hydro':]
+            s = jan.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='jan_reg_NW' + str(line)
@@ -1266,7 +1265,7 @@ for line in lines:
 
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb.loc[i,'BPA_hydro':]
+            s = feb.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='feb_reg_NW' + str(line)
@@ -1274,7 +1273,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar.loc[i,'BPA_hydro':]
+            s = mar.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='mar_reg_NW' + str(line)
@@ -1282,7 +1281,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr.loc[i,'BPA_hydro':]
+            s = apr.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='apr_reg_NW' + str(line)
@@ -1290,7 +1289,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may.loc[i,'BPA_hydro':]
+            s = may.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='may_reg_NW' + str(line)
@@ -1298,7 +1297,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun.loc[i,'BPA_hydro':]
+            s = jun.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='jun_reg_NW' + str(line)
@@ -1306,7 +1305,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul.loc[i,'BPA_hydro':]
+            s = jul.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='jul_reg_NW' + str(line)
@@ -1314,7 +1313,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug.loc[i,'BPA_hydro':]
+            s = aug.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='aug_reg_NW' + str(line)
@@ -1322,7 +1321,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep.loc[i,'BPA_hydro':]
+            s = sep.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='sep_reg_NW' + str(line)
@@ -1330,7 +1329,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct.loc[i,'BPA_hydro':]
+            s = oct.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='oct_reg_NW' + str(line)
@@ -1338,7 +1337,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov.loc[i,'BPA_hydro':]
+            s = nov.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='nov_reg_NW' + str(line)
@@ -1346,7 +1345,7 @@ for line in lines:
             
             predicted = np.append(predicted,p)
         else:
-            s = dec.loc[i,'BPA_hydro':]
+            s = dec.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             
             name='dec_reg_NW' + str(line)
@@ -1418,7 +1417,7 @@ df_data.rename(columns={3:'Path61'}, inplace=True)
 df_data.rename(columns={4:'Path42'}, inplace=True)
 df_data.rename(columns={5:'Path24'}, inplace=True)
 df_data.rename(columns={6:'Path45'}, inplace=True)
-df_data.rename(columns={7:'BPA_hydro'}, inplace=True)
+df_data.rename(columns={7:'BPA_wind'}, inplace=True)
 
 jan = df_data.loc[df_data['Month'] == 1,:]
 feb = df_data.loc[df_data['Month'] == 2,:]
@@ -1477,23 +1476,23 @@ for line in lines:
 
     
     # Train the model using the training sets
-    locals()[name_1].fit(jan.loc[:,'BPA_hydro':],jan.loc[:,line])
-    locals()[name_2].fit(feb.loc[:,'BPA_hydro':],feb.loc[:,line])
-    locals()[name_3].fit(mar.loc[:,'BPA_hydro':],mar.loc[:,line])
-    locals()[name_4].fit(apr.loc[:,'BPA_hydro':],apr.loc[:,line])
-    locals()[name_5].fit(may.loc[:,'BPA_hydro':],may.loc[:,line])
-    locals()[name_6].fit(jun.loc[:,'BPA_hydro':],jun.loc[:,line])
-    locals()[name_7].fit(jul.loc[:,'BPA_hydro':],jul.loc[:,line])
-    locals()[name_8].fit(aug.loc[:,'BPA_hydro':],aug.loc[:,line])
-    locals()[name_9].fit(sep.loc[:,'BPA_hydro':],sep.loc[:,line])
-    locals()[name_10].fit(oct.loc[:,'BPA_hydro':],oct.loc[:,line])
-    locals()[name_11].fit(nov.loc[:,'BPA_hydro':],nov.loc[:,line])
-    locals()[name_12].fit(dec.loc[:,'BPA_hydro':],dec.loc[:,line])
+    locals()[name_1].fit(jan.loc[:,'BPA_wind':],jan.loc[:,line])
+    locals()[name_2].fit(feb.loc[:,'BPA_wind':],feb.loc[:,line])
+    locals()[name_3].fit(mar.loc[:,'BPA_wind':],mar.loc[:,line])
+    locals()[name_4].fit(apr.loc[:,'BPA_wind':],apr.loc[:,line])
+    locals()[name_5].fit(may.loc[:,'BPA_wind':],may.loc[:,line])
+    locals()[name_6].fit(jun.loc[:,'BPA_wind':],jun.loc[:,line])
+    locals()[name_7].fit(jul.loc[:,'BPA_wind':],jul.loc[:,line])
+    locals()[name_8].fit(aug.loc[:,'BPA_wind':],aug.loc[:,line])
+    locals()[name_9].fit(sep.loc[:,'BPA_wind':],sep.loc[:,line])
+    locals()[name_10].fit(oct.loc[:,'BPA_wind':],oct.loc[:,line])
+    locals()[name_11].fit(nov.loc[:,'BPA_wind':],nov.loc[:,line])
+    locals()[name_12].fit(dec.loc[:,'BPA_wind':],dec.loc[:,line])
 
     
     # Make predictions using the testing set
     predicted = []
-    rc = np.shape(jan.loc[:,'BPA_hydro':])
+    rc = np.shape(jan.loc[:,'BPA_wind':])
     n = rc[1] 
     
     for i in range(0,len(y)):
@@ -1501,62 +1500,62 @@ for line in lines:
         m = df_data.loc[i,'Month']
         
         if m==1:
-            s = jan.loc[i,'BPA_hydro':]
+            s = jan.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_1].predict(s)
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb.loc[i,'BPA_hydro':]
+            s = feb.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_2].predict(s)
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar.loc[i,'BPA_hydro':]
+            s = mar.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_3].predict(s)
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr.loc[i,'BPA_hydro':]
+            s = apr.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_4].predict(s)
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may.loc[i,'BPA_hydro':]
+            s = may.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_5].predict(s)
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun.loc[i,'BPA_hydro':]
+            s = jun.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_6].predict(s)
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul.loc[i,'BPA_hydro':]
+            s = jul.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_7].predict(s)
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug.loc[i,'BPA_hydro':]
+            s = aug.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_8].predict(s)
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep.loc[i,'BPA_hydro':]
+            s = sep.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_9].predict(s)
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct.loc[i,'BPA_hydro':]
+            s = oct.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_10].predict(s)
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov.loc[i,'BPA_hydro':]
+            s = nov.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_11].predict(s)
             predicted = np.append(predicted,p)
         else:
-            s = dec.loc[i,'BPA_hydro':]
+            s = dec.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_12].predict(s)
             predicted = np.append(predicted,p)
@@ -1624,7 +1623,7 @@ df_data = pd.DataFrame(cX)
 df_data.rename(columns={0:'Month'}, inplace=True)
 df_data.rename(columns={3:'Path65'}, inplace=True)
 df_data.rename(columns={4:'Path66'}, inplace=True)
-df_data.rename(columns={5:'Hydro'}, inplace=True)
+df_data.rename(columns={5:'Wind'}, inplace=True)
 
 jan = df_data.loc[df_data['Month'] == 1,:]
 feb = df_data.loc[df_data['Month'] == 2,:]
@@ -1682,24 +1681,24 @@ for line in lines:
     
     
     # Train the model using the training sets
-    locals()[name_1].fit(jan.loc[:,'Hydro':],jan.loc[:,line])
-    locals()[name_2].fit(feb.loc[:,'Hydro':],feb.loc[:,line])
-    locals()[name_3].fit(mar.loc[:,'Hydro':],mar.loc[:,line])
-    locals()[name_4].fit(apr.loc[:,'Hydro':],apr.loc[:,line])
-    locals()[name_5].fit(may.loc[:,'Hydro':],may.loc[:,line])
-    locals()[name_6].fit(jun.loc[:,'Hydro':],jun.loc[:,line])
-    locals()[name_7].fit(jul.loc[:,'Hydro':],jul.loc[:,line])
-    locals()[name_8].fit(aug.loc[:,'Hydro':],aug.loc[:,line])
-    locals()[name_9].fit(sep.loc[:,'Hydro':],sep.loc[:,line])
-    locals()[name_10].fit(oct.loc[:,'Hydro':],oct.loc[:,line])
-    locals()[name_11].fit(nov.loc[:,'Hydro':],nov.loc[:,line])
-    locals()[name_12].fit(dec.loc[:,'Hydro':],dec.loc[:,line])
+    locals()[name_1].fit(jan.loc[:,'Wind':],jan.loc[:,line])
+    locals()[name_2].fit(feb.loc[:,'Wind':],feb.loc[:,line])
+    locals()[name_3].fit(mar.loc[:,'Wind':],mar.loc[:,line])
+    locals()[name_4].fit(apr.loc[:,'Wind':],apr.loc[:,line])
+    locals()[name_5].fit(may.loc[:,'Wind':],may.loc[:,line])
+    locals()[name_6].fit(jun.loc[:,'Wind':],jun.loc[:,line])
+    locals()[name_7].fit(jul.loc[:,'Wind':],jul.loc[:,line])
+    locals()[name_8].fit(aug.loc[:,'Wind':],aug.loc[:,line])
+    locals()[name_9].fit(sep.loc[:,'Wind':],sep.loc[:,line])
+    locals()[name_10].fit(oct.loc[:,'Wind':],oct.loc[:,line])
+    locals()[name_11].fit(nov.loc[:,'Wind':],nov.loc[:,line])
+    locals()[name_12].fit(dec.loc[:,'Wind':],dec.loc[:,line])
     
 
     
     # Make predictions using the testing set
     predicted = []
-    rc = np.shape(jan.loc[:,'Hydro':])
+    rc = np.shape(jan.loc[:,'Wind':])
     n = rc[1] 
     
     for i in range(0,len(y)):
@@ -1707,62 +1706,62 @@ for line in lines:
         m = df_data.loc[i,'Month']
         
         if m==1:
-            s = jan.loc[i,'Hydro':]
+            s = jan.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_1].predict(s)
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb.loc[i,'Hydro':]
+            s = feb.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_2].predict(s)
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar.loc[i,'Hydro':]
+            s = mar.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_3].predict(s)
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr.loc[i,'Hydro':]
+            s = apr.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_4].predict(s)
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may.loc[i,'Hydro':]
+            s = may.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_5].predict(s)
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun.loc[i,'Hydro':]
+            s = jun.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_6].predict(s)
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul.loc[i,'Hydro':]
+            s = jul.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_7].predict(s)
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug.loc[i,'Hydro':]
+            s = aug.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_8].predict(s)
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep.loc[i,'Hydro':]
+            s = sep.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_9].predict(s)
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct.loc[i,'Hydro':]
+            s = oct.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_10].predict(s)
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov.loc[i,'Hydro':]
+            s = nov.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_11].predict(s)
             predicted = np.append(predicted,p)
         else:
-            s = dec.loc[i,'Hydro':]
+            s = dec.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_12].predict(s)
             predicted = np.append(predicted,p)
@@ -1963,7 +1962,7 @@ HDD_wind_sim=HDD_wind_sim[365:len(HDD_wind_sim)-730]
 CDD_wind_sim=CDD_wind_sim[365:len(CDD_wind_sim)-730]
 
 
-collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_BPA_hydro,sim_dow))
+collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_wind_daily,sim_BPA_hydro,sim_dow))
 collect_data_2=np.column_stack((HDD_sim,CDD_sim,HDD_wind_sim,CDD_wind_sim))
 Combined=np.column_stack((collect_data,collect_data_2))
 
@@ -1973,9 +1972,10 @@ df_data_sim.rename(columns={0:'Month'}, inplace=True)
 df_data_sim.rename(columns={3:'Path8'}, inplace=True)
 df_data_sim.rename(columns={4:'Path14'}, inplace=True)
 df_data_sim.rename(columns={5:'Path3'}, inplace=True)
-df_data_sim.rename(columns={6:'BPA_hydro'}, inplace=True)
-df_data_sim.rename(columns={7:'Weekday'}, inplace=True)
-df_data_sim.rename(columns={8:'Salem_HDD'}, inplace=True)
+df_data_sim.rename(columns={6:'BPA_wind'}, inplace=True)
+df_data_sim.rename(columns={7:'BPA_hydro'}, inplace=True)
+df_data_sim.rename(columns={8:'Weekday'}, inplace=True)
+df_data_sim.rename(columns={9:'Salem_HDD'}, inplace=True)
 
 jan2 = df_data_sim.loc[df_data_sim['Month'] == 1,:]
 feb2 = df_data_sim.loc[df_data_sim['Month'] == 2,:]
@@ -2000,7 +2000,7 @@ for line in lines:
     locals()[name]=[]
 for line in lines:
     predicted=[]
-    rc = np.shape(jan2.loc[:,'BPA_hydro':])
+    rc = np.shape(jan2.loc[:,'BPA_wind':])
     n = rc[1] 
     y = df_data_sim.loc[:,line]
     line_index = lines.index(line)
@@ -2024,62 +2024,62 @@ for line in lines:
         m = df_data_sim.loc[i,'Month']
         
         if m==1:
-            s = jan2.loc[i,'BPA_hydro':]
+            s = jan2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n)) 
             p = locals()[name_1].predict(s)
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb2.loc[i,'BPA_hydro':]
+            s = feb2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_2].predict(s)
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar2.loc[i,'BPA_hydro':]
+            s = mar2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_3].predict(s)
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr2.loc[i,'BPA_hydro':]
+            s = apr2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_4].predict(s)
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may2.loc[i,'BPA_hydro':]
+            s = may2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_5].predict(s)
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun2.loc[i,'BPA_hydro':]
+            s = jun2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_6].predict(s)
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul2.loc[i,'BPA_hydro':]
+            s = jul2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_7].predict(s)
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug2.loc[i,'BPA_hydro':]
+            s = aug2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_8].predict(s)
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep2.loc[i,'BPA_hydro':]
+            s = sep2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_9].predict(s)
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct2.loc[i,'BPA_hydro':]
+            s = oct2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_10].predict(s)
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov2.loc[i,'BPA_hydro':]
+            s = nov2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_11].predict(s)
             predicted = np.append(predicted,p)
         else:
-            s = dec2.loc[i,'BPA_hydro':]
+            s = dec2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_12].predict(s)
             predicted = np.append(predicted,p)
@@ -2107,9 +2107,9 @@ syn_Path3 = syn_Path3 - bias
 
 S = df_data_sim.values
 HO = H.values
-stats = np.zeros((68,4))
+stats = np.zeros((69,4))
 
-for i in range(0,68):
+for i in range(0,69):
     stats[i,0] = np.mean(S[:,i])
     stats[i,1] = np.mean(HO[:,i])
     stats[i,2] = np.std(S[:,i])
@@ -2153,14 +2153,14 @@ HDD_wind_sim=HDD_wind_sim[365:len(HDD_wind_sim)-730]
 CDD_wind_sim=CDD_wind_sim[365:len(CDD_wind_sim)-730]
 
 
-collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_BPA_hydro,syn_Path3,syn_Path8,syn_Path14,sim_dow))
+collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_wind_daily,sim_BPA_hydro,syn_Path3,syn_Path8,syn_Path14,sim_dow))
 collect_data_2=np.column_stack((HDD_sim,CDD_sim,HDD_wind_sim,CDD_wind_sim))
 Combined=np.column_stack((collect_data,collect_data_2))
 df_data_sim = pd.DataFrame(Combined)
 df_data_sim.rename(columns={0:'Month'}, inplace=True)
 df_data_sim.rename(columns={3:'Path65'}, inplace=True)
 df_data_sim.rename(columns={4:'Path66'}, inplace=True)
-df_data_sim.rename(columns={5:'Hydro'}, inplace=True)
+df_data_sim.rename(columns={5:'Wind'}, inplace=True)
 
 jan2 = df_data_sim.loc[df_data_sim['Month'] == 1,:]
 feb2 = df_data_sim.loc[df_data_sim['Month'] == 2,:]
@@ -2185,7 +2185,7 @@ for line in lines:
     
 for line in lines:    
     predicted=[]
-    rc = np.shape(jan2.loc[:,'Hydro':])
+    rc = np.shape(jan2.loc[:,'Wind':])
     n = rc[1] 
     y = df_data_sim.loc[:,line]
     line_index = lines.index(line)
@@ -2209,62 +2209,62 @@ for line in lines:
         m = df_data_sim.loc[i,'Month']
         
         if m==1:
-            s = jan2.loc[i,'Hydro':]
+            s = jan2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_1].predict(s)
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb2.loc[i,'Hydro':]
+            s = feb2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_2].predict(s)
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar2.loc[i,'Hydro':]
+            s = mar2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_3].predict(s)
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr2.loc[i,'Hydro':]
+            s = apr2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_4].predict(s)
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may2.loc[i,'Hydro':]
+            s = may2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_5].predict(s)
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun2.loc[i,'Hydro':]
+            s = jun2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_6].predict(s)
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul2.loc[i,'Hydro':]
+            s = jul2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_7].predict(s)
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug2.loc[i,'Hydro':]
+            s = aug2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_8].predict(s)
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep2.loc[i,'Hydro':]
+            s = sep2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_9].predict(s)
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct2.loc[i,'Hydro':]
+            s = oct2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_10].predict(s)
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov2.loc[i,'Hydro':]
+            s = nov2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_11].predict(s)
             predicted = np.append(predicted,p)
         else:
-            s = dec2.loc[i,'Hydro':]
+            s = dec2.loc[i,'Wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_12].predict(s)
             predicted = np.append(predicted,p)
@@ -2476,7 +2476,7 @@ CDD_sim=CDD_sim[365:len(CDD_sim)-730]
 HDD_wind_sim=HDD_wind_sim[365:len(HDD_wind_sim)-730]
 CDD_wind_sim=CDD_wind_sim[365:len(CDD_wind_sim)-730]
 
-collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_BPA_hydro,sim_dow,syn_Path46,sim_Hoover,syn_Path65,syn_Path66))
+collect_data=np.column_stack((sim_month,sim_day,sim_year,np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),np.zeros(effect_sim_year*365),sim_wind_daily,sim_BPA_hydro,sim_dow,syn_Path46,sim_Hoover,syn_Path65,syn_Path66))
 collect_data_2=np.column_stack((HDD_sim,CDD_sim,HDD_wind_sim,CDD_wind_sim))
 Combined=np.column_stack((collect_data,collect_data_2))
 df_data_sim = pd.DataFrame(Combined)
@@ -2486,7 +2486,7 @@ df_data_sim.rename(columns={3:'Path61'}, inplace=True)
 df_data_sim.rename(columns={4:'Path42'}, inplace=True)
 df_data_sim.rename(columns={5:'Path24'}, inplace=True)
 df_data_sim.rename(columns={6:'Path45'}, inplace=True)
-df_data_sim.rename(columns={7:'BPA_hydro'}, inplace=True)
+df_data_sim.rename(columns={7:'BPA_wind'}, inplace=True)
 
 jan2 = df_data_sim.loc[df_data_sim['Month'] == 1,:]
 feb2 = df_data_sim.loc[df_data_sim['Month'] == 2,:]
@@ -2512,7 +2512,7 @@ for line in lines:
 
 for line in lines:    
     predicted=[]
-    rc = np.shape(jan2.loc[:,'BPA_hydro':])
+    rc = np.shape(jan2.loc[:,'BPA_wind':])
     n = rc[1] 
     y = df_data_sim.loc[:,line]
     line_index = lines.index(line)
@@ -2536,62 +2536,62 @@ for line in lines:
         m = df_data_sim.loc[i,'Month']
         
         if m==1:
-            s = jan2.loc[i,'BPA_hydro':]
+            s = jan2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_1].predict(s)
             predicted = np.append(predicted,p)
         elif m==2:
-            s = feb2.loc[i,'BPA_hydro':]
+            s = feb2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_2].predict(s)
             predicted = np.append(predicted,p)
         elif m==3:
-            s = mar2.loc[i,'BPA_hydro':]
+            s = mar2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_3].predict(s)
             predicted = np.append(predicted,p)
         elif m==4:
-            s = apr2.loc[i,'BPA_hydro':]
+            s = apr2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_4].predict(s)
             predicted = np.append(predicted,p)
         elif m==5:
-            s = may2.loc[i,'BPA_hydro':]
+            s = may2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_5].predict(s)
             predicted = np.append(predicted,p)
         elif m==6:
-            s = jun2.loc[i,'BPA_hydro':]
+            s = jun2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_6].predict(s)
             predicted = np.append(predicted,p)
         elif m==7:
-            s = jul2.loc[i,'BPA_hydro':]
+            s = jul2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_7].predict(s)
             predicted = np.append(predicted,p)
         elif m==8:
-            s = aug2.loc[i,'BPA_hydro':]
+            s = aug2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_8].predict(s)
             predicted = np.append(predicted,p)
         elif m==9:
-            s = sep2.loc[i,'BPA_hydro':]
+            s = sep2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_9].predict(s)
             predicted = np.append(predicted,p)
         elif m==10:
-            s = oct2.loc[i,'BPA_hydro':]
+            s = oct2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_10].predict(s)
             predicted = np.append(predicted,p)
         elif m==11:
-            s = nov2.loc[i,'BPA_hydro':]
+            s = nov2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_11].predict(s)
             predicted = np.append(predicted,p)
         else:
-            s = dec2.loc[i,'BPA_hydro':]
+            s = dec2.loc[i,'BPA_wind':]
             s = np.reshape(s[:,None],(1,n))
             p = locals()[name_12].predict(s)
             predicted = np.append(predicted,p)
@@ -2726,6 +2726,7 @@ SDGE_hourly = np.zeros((8760*effect_sim_year,1))
 SCE_hourly = np.zeros((8760*effect_sim_year,1))
 PGEV_hourly = np.zeros((8760*effect_sim_year,1))
 PGEB_hourly = np.zeros((8760*effect_sim_year,1))
+PNW_hourly = np.zeros((8760*effect_sim_year,1))
 
 for i in range(0,effect_sim_year):
     for j in range(0,365):
@@ -2749,9 +2750,14 @@ for i in range(0,effect_sim_year):
         a = np.reshape(v,(24,1))
         PGEB_hourly[i*8760+24*j:i*8760+24*j+24] = a
         
-# Scale BPA demand up to zonal
+#Scale BPA demand up to PNW region wide total
 import PNW_demand_scaling
-PNW_hourly = PNW_demand_scaling.PNW_demand(BPA_hourly)
+
+for i in range(0,effect_sim_year):
+    
+    A = PNW_demand_scaling.PNW_demand(BPA_hourly[i*8760:i*8760+8760,0])
+    B = np.reshape(A[:,None],(8760,1))
+    PNW_hourly[i*8760:i*8760+8760] = B
 
 Combined = np.column_stack((BPA_hourly,PNW_hourly,SDGE_hourly,SCE_hourly,PGEV_hourly,PGEB_hourly))
 df_C = pd.DataFrame(Combined)

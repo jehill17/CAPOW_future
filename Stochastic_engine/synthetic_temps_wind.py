@@ -129,7 +129,7 @@ def synthetic(sim_years):
     headers = H[1:]        
     df_sim = pd.DataFrame(sim_weather)
     df_sim.columns = headers    
-    df_sim.to_csv('Synthetic_Weather/synthetic_weather_data.csv')
+    df_sim.to_csv('Synthetic_weather/synthetic_weather_data.csv')
     
     return None
 

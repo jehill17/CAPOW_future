@@ -26,11 +26,11 @@ synthetic_temps_wind.synthetic(sim_years)
 
 # Generate synthetic streamflow records 
 import synthetic_streamflows
-############################################################################
-
-############################################################################
+#############################################################################
+#
+#############################################################################
 # DAILY HYDROPOWER SIMULATION
-
+#
 # California Hydropower model (machine learning) 
 import CA_hydropower
 CA_hydropower.hydro(sim_years)
@@ -44,15 +44,19 @@ sys.path.append(FCRPS_Path)
 sys.path.append(Streamflow_Path)
 import Run_Matlab_Script
 
-# Zonal calculation of daily hydro - NEED TO ADD MISSING DAMS (JOY)
+# Willamette US Army Corps of Engineers Hydropower model (mass balance)
+
+
+
+# Zonal calculation of daily hydro
 import PNW_hydro
 
-############################################################################
-
-############################################################################
-# HOURLY WIND AND SOLAR POWER PRODUCTION
-
-# WIND
+#############################################################################
+#
+#############################################################################
+## HOURLY WIND AND SOLAR POWER PRODUCTION
+#
+## WIND
 # Specify installed capacity of wind power for each zone
 PNW_cap = 6445
 CAISO_cap = 4915
@@ -70,9 +74,9 @@ CAISO_solar_cap = 9890
 # the CAISO zone for the entire simulation period
 import synthetic_solar
 synthetic_solar.solar_sim(sim_years,CAISO_solar_cap)
-#############################################################################
-
-#############################################################################
+##############################################################################
+#
+##############################################################################
 # ELECTRICITY DEMAND AND TRANSMISSION PATH FLOWS
 
 # Calculate daily peak and hourly electricity demand for each zone and daily 
@@ -82,9 +86,9 @@ synthetic_solar.solar_sim(sim_years,CAISO_solar_cap)
 # NOTE: NEED TO ACCOUNT FOR PNW DEMAND CALCULATION IN FOLLOWING SCRIPT
 
 import demand_pathflows
-#############################################################################
-
-#############################################################################
+##############################################################################
+#
+##############################################################################
 # NATURAL GAS PRICES
 
 # NOTE: NEED SCRIPT HERE TO SIMULATE STOCHASTIC NATURAL GAS PRICES 
@@ -105,7 +109,7 @@ NG.columns = ['SCE','SDGE','PGE_valley','PGE_bay','PNW']
 NG.to_excel('Gas_prices/NG.xlsx')
 
 
-#############################################################################
+##############################################################################
 
 
 
